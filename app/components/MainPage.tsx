@@ -162,7 +162,7 @@ const MainPage = (props: Props) => {
   }
   return (
     <>
-      <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 ">
+      <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 my-10">
         Spaceflight News{" "}
       </p>
 
