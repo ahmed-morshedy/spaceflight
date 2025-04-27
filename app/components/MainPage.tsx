@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ArticleCard from "../ui/ArticleCard";
 import { useDebouncedCallback } from "use-debounce";
-import { fetchArticles } from "../lib/api";
+import { fetchArticles, fetchBlogs } from "../lib/api";
 import ArticleCardSkeleton from "../ui/ArticleSkeleton";
+import BlogCard from "../ui/BlogCard";
 
 type Props = {};
 
@@ -15,6 +16,7 @@ const MainPage = (props: Props) => {
   const pathname = usePathname();
   const offset = searchParams.get("offset");
   const [articles, setArticles] = useState<Articles | null>(null);
+  const [blogs, setBlogs] = useState<Blogs | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pre, setPre] = useState<string | null>(null);
@@ -75,6 +77,32 @@ const MainPage = (props: Props) => {
       );
     }
     const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        if (searchParams.get("offset") && searchParams.get("limit")) {
+          const offset = searchParams.get("offset")?.trim() as string;
+          const limit = searchParams.get("limit")?.trim() as string;
+          const data = await fetchBlogs(
+            `https://api.spaceflightnewsapi.net/v4/blogs/?format=json&limit=${limit}&offset=${offset}`
+          );
+
+          if (!data) {
+            throw new Error("Failed to fetch articles.");
+          }
+
+          setNext(data.next ?? "");
+          setPre(data.previous);
+          setBlogs(data);
+        } else {
+          const data = await fetchBlogs(
+            "https://api.spaceflightnewsapi.net/v4/blogs/?format=json&limit=20&offset=0"
+          );
+          setBlogs(data);
+        }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
       if (searchParams.get("offset") && searchParams.get("limit")) {
         try {
           error && setError(null);
@@ -124,21 +152,55 @@ const MainPage = (props: Props) => {
   const columns = articles ? chunkArticles(articles.results, 2) : [];
 
   if (isLoading) {
-    return Array.from({ length: 6 }).map((_, i) => (
-      <ArticleCardSkeleton key={i} />
-    ));
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <ArticleCardSkeleton key={i} />
+        ))}
+      </div>
+    );
   }
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-        {columns.map((colArticles, colIndex) => (
-          <div key={colIndex} className="flex flex-col">
-            {colArticles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-          </div>
-        ))}
+      <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 ">
+        Spaceflight News{" "}
+      </p>
+
+      {/* Blog Div */}
+      <div className="  mb-4 relative">
+        <div className=" mb-3.5 flex items-center ">
+          <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+            New Space Blog
+          </p>
+          <span className="relative flex size-3">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-600 opacity-75"></span>
+            <span className="relative inline-flex size-3 rounded-full bg-red-600"></span>
+          </span>
+        </div>
+
+        {blogs && Array.isArray(blogs.results) && blogs.results.length > 0 && (
+          <BlogCard blog={blogs.results[0]} />
+        )}
       </div>
+
+      {/* Articles Div */}
+      <div className="  mt-8 ">
+        <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+          Space Articles
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+          {columns.map((colArticles, colIndex) => (
+            <div key={colIndex} className="flex flex-col">
+              {colArticles.map((article) => (
+                <ArticleCard key={article.id} article={article} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Buttons */}
       <div className="flex justify-between m-4">
         <button
           onClick={() => handelPre(pre)}

@@ -9,3 +9,15 @@ export async function fetchArticles(url: string) {
     return null;
   }
 }
+
+export async function fetchBlogs(url: string) {
+  try {
+    const res = await fetch(url);
+    const data: Blogs = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return null;
+  }
+}
