@@ -47,3 +47,22 @@ interface Blogs {
   previous: string | null;
   results: Blog[];
 }
+
+interface Report {
+  id: number;
+  title: string;
+  authors: Author[] | null;
+  Url: string;
+  description: string;
+  image_url: string;
+  news_site: string;
+  summary: string;
+  published_at: string;
+}
+
+interface Reports {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Report[];
+}

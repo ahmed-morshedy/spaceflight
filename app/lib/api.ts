@@ -21,3 +21,15 @@ export async function fetchBlogs(url: string) {
     return null;
   }
 }
+
+export async function fetchRports(url: string) {
+  try {
+    const res = await fetch(url);
+    const data: Reports = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return null;
+  }
+}
