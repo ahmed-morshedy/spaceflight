@@ -87,7 +87,7 @@ const MainPage = (props: Props) => {
           const offset = searchParams.get("offset")?.trim() as string;
           const limit = searchParams.get("limit")?.trim() as string;
           const data = await fetchBlogs(
-            `https://api.spaceflightnewsapi.net/v4/blogs/?format=json&limit=${limit}&offset=${offset}`
+            `https://api.spaceflightnewsapi.net/v4/blogs/?format=json`
           );
 
           if (!data) {
@@ -132,7 +132,7 @@ const MainPage = (props: Props) => {
       } else {
         try {
           const data = await fetchArticles(
-            "https://api.spaceflightnewsapi.net/v4/articles/?format=json&limit=20&offset=0"
+            "https://api.spaceflightnewsapi.net/v4/articles/?format=json&limit=10&offset=0"
           );
           setArticles(data);
         } catch (error) {
