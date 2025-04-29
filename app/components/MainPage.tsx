@@ -31,7 +31,6 @@ const MainPage = (props: Props) => {
     const parsedUrl = new URL(href);
 
     const offset: string | number = parsedUrl.searchParams.get("offset") ?? "0";
-    if (Number(offset) > 1000) return;
 
     const limit = parsedUrl.searchParams.get("limit");
     const params = new URLSearchParams(searchParams);
