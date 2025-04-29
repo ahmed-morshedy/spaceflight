@@ -8,6 +8,8 @@ import { fetchArticles, fetchBlogs } from "../lib/api";
 import ArticleCardSkeleton from "../ui/ArticleSkeleton";
 import BlogCard from "../ui/BlogCard";
 import Footer from "../ui/Footer";
+import Bar from "../ui/Bar";
+import Header from "./Header";
 
 type Props = {};
 
@@ -158,11 +160,9 @@ const MainPage = (props: Props) => {
   }
   return (
     <div className=" relative ">
-      <div className="p-2 sm:p-20">
-        <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 my-5 ">
-          Spaceflight News{" "}
-        </p>
+      <Header />
 
+      <div className="p-2 sm:p-20 pt-24">
         {/* Blog Div */}
         <div className="  mb-4 relative">
           <div className=" mb-3.5 flex items-center ">
