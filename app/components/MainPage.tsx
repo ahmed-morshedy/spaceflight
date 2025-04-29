@@ -77,6 +77,7 @@ const MainPage = (props: Props) => {
       );
     }
     const fetchData = async () => {
+      //  fetch blogs
       try {
         setIsLoading(true);
         setError(null);
@@ -103,6 +104,7 @@ const MainPage = (props: Props) => {
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
+      // fetch articles
       if (searchParams.get("offset") && searchParams.get("limit")) {
         try {
           error && setError(null);
@@ -152,13 +154,7 @@ const MainPage = (props: Props) => {
   const columns = articles ? chunkArticles(articles.results, 2) : [];
 
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <ArticleCardSkeleton key={i} />
-        ))}
-      </div>
-    );
+    return <ArticleCardSkeleton />;
   }
   return (
     <>
@@ -206,8 +202,10 @@ const MainPage = (props: Props) => {
           onClick={() => handelPre(pre)}
           disabled={!pre}
           className={`${
-            !pre ? "cursor-not-allowed" : "cursor-pointer"
-          } bg-blue-500 text-white px-4 py-2 rounded`}
+            !pre
+              ? "cursor-not-allowed bg-blue-300"
+              : "cursor-pointer bg-blue-500"
+          }  text-white px-4 py-2 rounded`}
         >
           Previous
         </button>
@@ -215,8 +213,10 @@ const MainPage = (props: Props) => {
           onClick={() => handelNext(next)}
           disabled={!next}
           className={`${
-            !next ? "cursor-not-allowed" : "cursor-pointer"
-          } bg-blue-500 text-white px-4 py-2 rounded`}
+            !next
+              ? "cursor-not-allowed bg-blue-300"
+              : "cursor-pointer bg-blue-500"
+          }  text-white px-4 py-2 rounded`}
         >
           Next
         </button>
