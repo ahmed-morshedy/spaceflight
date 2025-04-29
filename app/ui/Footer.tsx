@@ -5,7 +5,7 @@ type Props = {};
 const Footer = (props: Props) => {
   const date = new Date().getFullYear();
   return (
-    <footer className="  ">
+    <footer>
       <div className="flex justify-center items-center px-2 py-5 bg-gray-800 text-white">
         <p className="text-sm">
           © {date} Space Flight News. Made with ❤️ by Morshedy
