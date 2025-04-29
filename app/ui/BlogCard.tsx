@@ -19,19 +19,18 @@ const BlogCard = ({ blog }: Props) => {
 
   return (
     <>
-      <Link href={url} className="w-full">
-        <div className={`  m-2 border rounded-xl overflow-hidden relative`}>
-          <div className="relative max-h-[350px] overflow-hidden">
+      {/* w-full md:w-1/3 */}
+      <Link href={url} className=" w-svw max-w-[650px]">
+        <div className={"  m-2 border rounded-xl overflow-hidden relative"}>
+          <div className="   ">
             <img
               src={image_url}
               alt="article-img"
-              className=" w-full"
-              width={220}
-              height={50}
+              className=" w-auto object-fill"
             />
           </div>
-          <div className={" text-white bg-black bg-opacity-50 p-4"}>
-            <h2 className="text-2xl font-bold">{title}</h2>
+          <div className={" text-white bg-black bg-opacity-50 p-2 md:p-4"}>
+            <h2 className="text-lg md:text-2xl font-bold">{title}</h2>
             <p className="text-sm my-2">{`Published by ${news_site}`}</p>
             <div className="flex items-center justify-between mt-2">
               <p className="text-sm text-gray-500">

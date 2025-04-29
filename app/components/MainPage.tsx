@@ -7,6 +7,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { fetchArticles, fetchBlogs } from "../lib/api";
 import ArticleCardSkeleton from "../ui/ArticleSkeleton";
 import BlogCard from "../ui/BlogCard";
+import Footer from "../ui/Footer";
 
 type Props = {};
 
@@ -157,71 +158,76 @@ const MainPage = (props: Props) => {
     return <ArticleCardSkeleton />;
   }
   return (
-    <>
-      <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 my-10">
-        Spaceflight News{" "}
-      </p>
-
-      {/* Blog Div */}
-      <div className="  mb-4 relative">
-        <div className=" mb-3.5 flex items-center ">
-          <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
-            New Space Blog
-          </p>
-          <span className="relative flex size-3">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-600 opacity-75"></span>
-            <span className="relative inline-flex size-3 rounded-full bg-red-600"></span>
-          </span>
-        </div>
-
-        {blogs && Array.isArray(blogs.results) && blogs.results.length > 0 && (
-          <BlogCard blog={blogs.results[0]} />
-        )}
-      </div>
-
-      {/* Articles Div */}
-      <div className="  mt-8 ">
-        <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
-          Space Articles
+    <div className=" relative ">
+      <div className="p-2 sm:p-20">
+        <p className=" text-3xl font-extrabold flex justify-center italic underline decoration-red-500 my-5 ">
+          Spaceflight News{" "}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-          {columns.map((colArticles, colIndex) => (
-            <div key={colIndex} className="flex flex-col">
-              {colArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
-            </div>
-          ))}
+        {/* Blog Div */}
+        <div className="  mb-4 relative">
+          <div className=" mb-3.5 flex items-center ">
+            <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+              New Space Blog
+            </p>
+            <span className="relative flex size-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-600 opacity-75"></span>
+              <span className="relative inline-flex size-3 rounded-full bg-red-600"></span>
+            </span>
+          </div>
+          <div className="flex justify-center items-center p-2">
+            {blogs &&
+              Array.isArray(blogs.results) &&
+              blogs.results.length > 0 && <BlogCard blog={blogs.results[0]} />}
+          </div>
+        </div>
+
+        {/* Articles Div */}
+        <div className="  mt-8 ">
+          <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+            Space Articles
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+            {columns.map((colArticles, colIndex) => (
+              <div key={colIndex} className="flex flex-col">
+                {colArticles.map((article) => (
+                  <ArticleCard key={article.id} article={article} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-between m-4">
+          <button
+            onClick={() => handelPre(pre)}
+            disabled={!pre}
+            className={`${
+              !pre
+                ? "cursor-not-allowed bg-blue-300"
+                : "cursor-pointer bg-blue-500"
+            }  text-white px-4 py-2 rounded`}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => handelNext(next)}
+            disabled={!next}
+            className={`${
+              !next
+                ? "cursor-not-allowed bg-blue-300"
+                : "cursor-pointer bg-blue-500"
+            }  text-white px-4 py-2 rounded`}
+          >
+            Next
+          </button>
         </div>
       </div>
-
-      {/* Buttons */}
-      <div className="flex justify-between m-4">
-        <button
-          onClick={() => handelPre(pre)}
-          disabled={!pre}
-          className={`${
-            !pre
-              ? "cursor-not-allowed bg-blue-300"
-              : "cursor-pointer bg-blue-500"
-          }  text-white px-4 py-2 rounded`}
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => handelNext(next)}
-          disabled={!next}
-          className={`${
-            !next
-              ? "cursor-not-allowed bg-blue-300"
-              : "cursor-pointer bg-blue-500"
-          }  text-white px-4 py-2 rounded`}
-        >
-          Next
-        </button>
-      </div>
-    </>
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 };
 
