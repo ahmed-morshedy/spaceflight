@@ -1,14 +1,42 @@
+.card {
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+ 
+
 .card:hover {
   transform: translateY(-5px);
-  transition: transform 0.2s linear;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .overlay {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 8px;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: clamp(0.5rem, 2vw, 1rem);
   color: #fff;
+}
+
+@media (max-width: 640px) {
+  .card {
+    margin-bottom: 0.75rem;
+  }
+  
+  .overlay h2 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .overlay h2 {
+    font-size: 1.25rem;
+  }
 }

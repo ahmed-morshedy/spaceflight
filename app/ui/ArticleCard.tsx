@@ -19,27 +19,26 @@ const ArticleCard = ({ article }: Props) => {
   } = article;
 
   return (
-    <Link href={url} className="w-full">
+    <Link href={url} className="w-full h-full block">
       <div
-        className={`${style.card} m-2 border rounded-xl overflow-hidden relative`}
+        className={`${style.card} m-2 rounded-xl overflow-hidden relative`}
       >
-        <div className="relative max-h-[350px] overflow-hidden">
+        <div className="relative aspect-video overflow-hidden">
           <img
             src={image_url}
-            alt="article-img"
-            className=" w-full"
-            width={220}
-            height={50}
+            alt={`${title} thumbnail`}
+            className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
         <div className={style.overlay}>
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="text-sm my-2">{`Published by ${news_site}`}</p>
-          <div className="flex items-center justify-between mt-2">
-            <p className="text-sm text-gray-500">
-              Author :{authors?.[0]?.name ?? "Unknown Author"}
+          <h2 className="font-bold line-clamp-2 text-lg sm:text-xl md:text-2xl">{title}</h2>
+          <p className="text-xs sm:text-sm my-1 sm:my-2 text-blue-300">{`Published by ${news_site}`}</p>
+          <div className="flex items-center justify-between mt-1 sm:mt-2 flex-wrap gap-1">
+            <p className="text-xs sm:text-sm text-gray-300">
+              {authors?.[0]?.name ? `By ${authors[0].name}` : "Unknown Author"}
             </p>
-            <p className="text-sm text-gray-500">{formatDate(published_at)}</p>
+            <p className="text-xs sm:text-sm text-gray-300">{formatDate(published_at)}</p>
           </div>
         </div>
       </div>

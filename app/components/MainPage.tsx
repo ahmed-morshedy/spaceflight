@@ -156,11 +156,11 @@ const MainPage = (props: Props) => {
     return <ArticleCardSkeleton />;
   }
   return (
-    <div className=" relative p-2 sm:p-20  ">
+    <div className="relative p-3 sm:p-5 md:p-10 lg:p-20 max-w-7xl mx-auto">
       {/* Blog Div */}
-      <div className="  mb-4 relative">
-        <div className=" mb-3.5 flex items-center ">
-          <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+      <div className="mb-6 relative">
+        <div className="mb-4 flex items-center">
+          <p className="text-2xl sm:text-3xl font-bold w-fit mr-3 text-red-700">
             New Space Blog
           </p>
           <span className="relative flex size-3">
@@ -176,33 +176,34 @@ const MainPage = (props: Props) => {
       </div>
 
       {/* Articles Div */}
-      <div className="  mt-8 ">
-        <p className=" text-3xl font-bold w-fit mr-3 text-red-700">
+      <div className="mt-10 relative">
+        <p className="text-2xl sm:text-3xl font-bold w-fit mr-3 text-red-700 mb-4">
           Space Articles
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-          {columns.map((colArticles, colIndex) => (
-            <div key={colIndex} className="flex flex-col">
-              {colArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 p-2">
+          {articles && articles.results.map((article) => (
+            <div key={article.id} className="h-full">
+              <ArticleCard article={article} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Buttons */}
-      <div className="flex justify-between m-4">
+      {/* Pagination Buttons */}
+      <div className="flex justify-between items-center my-6 sm:my-8 px-2 sm:px-4">
         <button
           onClick={() => handelPre(pre)}
           disabled={!pre}
           className={`${
             !pre
               ? "cursor-not-allowed bg-blue-300"
-              : "cursor-pointer bg-blue-500"
-          }  text-white px-4 py-2 rounded`}
+              : "cursor-pointer bg-blue-500 hover:bg-blue-600 transition-colors"
+          } text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg font-medium text-sm sm:text-base flex items-center`}
         >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+          </svg>
           Previous
         </button>
         <button
@@ -211,10 +212,13 @@ const MainPage = (props: Props) => {
           className={`${
             !next
               ? "cursor-not-allowed bg-blue-300"
-              : "cursor-pointer bg-blue-500"
-          }  text-white px-4 py-2 rounded`}
+              : "cursor-pointer bg-blue-500 hover:bg-blue-600 transition-colors"
+          } text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg font-medium text-sm sm:text-base flex items-center`}
         >
           Next
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+          </svg>
         </button>
       </div>
     </div>
