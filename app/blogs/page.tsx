@@ -6,6 +6,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { fetchBlogs } from "../lib/api";
 import ArticleCardSkeleton from "../ui/ArticleSkeleton";
 import ArticleCard from "../ui/ArticleCard";
+import BlogCard from "../ui/BlogCard";
 
 type Props = {};
 
@@ -137,7 +138,7 @@ const page = (props: Props) => {
           {columns.map((colArticles, colIndex) => (
             <div key={colIndex} className="flex flex-col">
               {colArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
+                <BlogCard key={article.id} blog={article} />
               ))}
             </div>
           ))}
